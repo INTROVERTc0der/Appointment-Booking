@@ -83,8 +83,8 @@ app.use((req, res) => {
   });
 });
 
-// const PORT = process.env.PORT || 3000;
-const PORT =3000;
+const PORT = process.env.PORT || 3000;
+// const PORT =10000;
 
 const server = app.listen(PORT, async () => {
   console.log(`Server running on port ${PORT}`);
