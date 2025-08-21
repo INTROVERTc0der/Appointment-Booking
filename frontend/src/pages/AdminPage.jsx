@@ -231,6 +231,86 @@ const AdminPage = () => {
         ) : tab === 'bookings' ? renderBookingsTable() : renderSlotsTable()}
 
         {/* Dialogs (Generate, Cancel, Delete) remain same as original */}
+              {/* Generate Slots Dialog */}
+      <Dialog open={dialog.open && dialog.type === 'generate'} onClose={() => setDialog({ open: false, type: '', data: null })}>
+        <DialogTitle>Generate Time Slots</DialogTitle>
+        <DialogContent>
+          <LocalizationProvider dateAdapter={AdapterDateFns}>
+            <DatePicker
+              label="Select Date"
+              value={form.date}
+              onChange={(date) => setForm({ ...form, date })}
+              renderInput={(params) => <TextField {...params} fullWidth sx={{ mt: 2 }} />}
+            />
+          </LocalizationProvider>
+          <FormControl fullWidth sx={{ mt: 2 }}>
+            <InputLabel>Interval (minutes)</InputLabel>
+            <Select
+              value={form.interval}
+              label="Interval (minutes)"
+              onChange={(e) => setForm({ ...form, interval: e.target.value })}
+            >
+              <MenuItem value={15}>15 minutes</MenuItem>
+              <MenuItem value={30}>30 minutes</MenuItem>
+              <MenuItem value={60}>60 minutes</MenuItem>
+            </Select>
+          </FormControl>
+          <Box sx={{ display: 'flex', gap: 2, mt: 2 }}>
+            <TextField
+              label="Start Time"
+              type="time"
+              value={form.startTime}
+              onChange={(e) => setForm({ ...form, startTime: e.target.value })}
+              fullWidth
+            />
+            <TextField
+              label="End Time"
+              type="time"
+              value={form.endTime}
+              onChange={(e) => setForm({ ...form, endTime: e.target.value })}
+              fullWidth
+            />
+          </Box>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={() => setDialog({ open: false, type: '', data: null })}>Cancel</Button>
+          <Button onClick={handleGenerateSlots} variant="contained" disabled={loading.slots}>
+            {loading.slots ? <CircularProgress size={24} /> : 'Generate'}
+          </Button>
+        </DialogActions>
+      </Dialog>
+
+      {/* Cancel Booking Dialog */}
+      <Dialog open={dialog.open && dialog.type === 'cancel'} onClose={() => setDialog({ open: false, type: '', data: null })}>
+        <DialogTitle>Cancel Booking</DialogTitle>
+        <DialogContent>
+          <DialogContentText>
+            Are you sure you want to cancel this booking?
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={() => setDialog({ open: false, type: '', data: null })}>No</Button>
+          <Button onClick={handleCancelBooking} color="error" autoFocus>
+            Yes, Cancel
+          </Button>
+        </DialogActions>
+      </Dialog>
+
+      {/* Delete Slot Dialog */}
+      <Dialog open={dialog.open && dialog.type === 'delete'} onClose={() => setDialog({ open: false, type: '', data: null })}>
+        <DialogTitle>Delete Time Slot</DialogTitle>
+        <DialogContent>
+          <DialogContentText>
+            Are you sure you want to delete this time slot?
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={() => setDialog({ open: false, type: '', data: null })}>No</Button>
+          <Button onClick={handleDeleteSlot} color="error" autoFocus>
+            Yes, Delete
+          </Button>
+        </DialogActions>
+      </Dialog>
       </Container>
     </Box>
   );
