@@ -14,9 +14,9 @@ connectDB();
 // Configure CORS
 const allowedOrigins = [
   '*',
+  'http://localhost:3000',
   'http://localhost:5173',
-  'https://appointbooking.netlify.app',
-  'https://appointbooking.netlify.app/'
+  'https://docterhelp.netlify.app',
 ];
 
 // Log all incoming requests for debugging
