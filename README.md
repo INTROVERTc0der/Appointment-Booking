@@ -1,31 +1,31 @@
-# Appointment Booking System
+# DoctorHelp 
 
-A full-stack appointment booking system built with Node.js, Express, MongoDB, and React.
+A full-stack web application that allows users to seamlessly book and manage appointments. The system is built using Node.js, Express, MongoDB, and React.
 
 ## Features
 
-- User authentication (JWT)
-- Role-based access control (Patient & Admin)
-- View available time slots
-- Book appointments
-- View personal bookings (for patients)
-- View all bookings (for admins)
-- Prevent double booking
-- Responsive UI
+- Secure user authentication using **JWT**
+- Role-based access: **Patient** & **Admin**
+- Patients can view available slots and book appointments
+- Patients can view their own bookings
+- Admins can view and manage all bookings
+- Prevents double-booking for the same time slot
+- Responsive UI that works on mobile and desktop
 
 ## Tech Stack
 
-- **Backend**: Node.js, Express.js
-- **Database**: MongoDB with Mongoose
-- **Authentication**: JWT (JSON Web Tokens)
-- **Frontend**: React.js 
-- **Styling**: CSS 
+- **Backend:** Node.js + Express  
+- **Database:** MongoDB (Mongoose)  
+- **Auth:** JSON Web Tokens (JWT)  
+- **Frontend:** React.js  
+- **Styling:** CSS
 
 ## Prerequisites
 
-- Node.js 
-- npm 
-- MongoDB 
+Ensure you have the following installed locally:
+
+- [Node.js](https://nodejs.org/) (includes `npm`)  
+- [MongoDB](https://www.mongodb.com/) (local or Atlas)
 
 ## Setup Instructions
 
@@ -91,8 +91,16 @@ A full-stack appointment booking system built with Node.js, Express, MongoDB, an
 1. Set up a MongoDB Atlas database and update the `MONGO_URI` in `.env`
 2. Deploy to a platform like Render, Heroku, or Railway
 
-### Frontend
 
-## License
+## Project strucuture 
+Wundrsight-Assignment/
+├── backend/
+│   ├── src/
+│   ├── package.json
+│   └── .env
+├── frontend/
+│   ├── src/
+│   └── package.json
+├── .gitignore
+└── README.md
 
-This project is licensed under the MIT License.
