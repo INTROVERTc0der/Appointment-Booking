@@ -1,86 +1,86 @@
 const Slot = require('../models/Slot');
 const Booking = require('../models/Booking');
 
-// const generateSlots = async (req, res) => {
-//   try {
-//     const slots = [];
-//     const now = new Date();
-//     const startDate = new Date(now);
-//     startDate.setHours(0, 0, 0, 0);
+const generateSlots = async (req, res) => {
+  try {
+    const slots = [];
+    const now = new Date();
+    const startDate = new Date(now);
+    startDate.setHours(0, 0, 0, 0);
     
-//     for (let day = 0; day < 7; day++) {
-//       const currentDate = new Date(startDate);
-//       currentDate.setDate(startDate.getDate() + day);
+    for (let day = 0; day < 7; day++) {
+      const currentDate = new Date(startDate);
+      currentDate.setDate(startDate.getDate() + day);
       
-//       for (let hour = 9; hour < 17; hour++) {
-//         for (let minute of [0, 30]) {
-//           const startTime = new Date(currentDate);
-//           startTime.setHours(hour, minute, 0, 0);
+      for (let hour = 9; hour < 17; hour++) {
+        for (let minute of [0, 30]) {
+          const startTime = new Date(currentDate);
+          startTime.setHours(hour, minute, 0, 0);
           
-//           const endTime = new Date(startTime);
-//           endTime.setMinutes(startTime.getMinutes() + 30);
+          const endTime = new Date(startTime);
+          endTime.setMinutes(startTime.getMinutes() + 30);
           
-//           if (startTime < now) continue;
+          if (startTime < now) continue;
           
-//           slots.push({
-//             startTime,
-//             endTime,
-//             isBooked: false
-//           });
-//         }
-//       }
-//     }
-    
-//     await Slot.deleteMany({});
-//     const createdSlots = await Slot.insertMany(slots);
-    
-//     res.status(201).json({
-//       message: 'Slots generated successfully',
-//       count: createdSlots.length,
-//       slots: createdSlots
-//     });
-    
-//   } catch (error) {
-//     console.error('Generate slots error:', error);
-//     res.status(500).json({ 
-//       error: { 
-//         code: 'SLOT_GENERATION_ERROR', 
-//         message: 'Error generating slots' 
-//       } 
-//     });
-//   }
-// };
-const generateSlots = (dateString, interval = 30) => {
-  console.log("request body"+req.body);
-  const slots = [];
-  const now = new Date();
-
-  // Take specific date passed by user
-  const targetDate = new Date(dateString);
-  targetDate.setHours(0, 0, 0, 0);
-
-  // Generate slots for that day only
-  for (let hour = 9; hour < 17; hour++) {
-    for (let minute = 0; minute < 60; minute += interval) {
-      const startTime = new Date(targetDate);
-      startTime.setHours(hour, minute, 0, 0);
-
-      const endTime = new Date(startTime);
-      endTime.setMinutes(startTime.getMinutes() + interval);
-
-      // skip slots that are already in the past
-      if (startTime < now) continue;
-
-      slots.push({
-        startTime,
-        endTime,
-        isBooked: false,
-      });
+          slots.push({
+            startTime,
+            endTime,
+            isBooked: false
+          });
+        }
+      }
     }
+    
+    await Slot.deleteMany({});
+    const createdSlots = await Slot.insertMany(slots);
+    
+    res.status(201).json({
+      message: 'Slots generated successfully',
+      count: createdSlots.length,
+      slots: createdSlots
+    });
+    
+  } catch (error) {
+    console.error('Generate slots error:', error);
+    res.status(500).json({ 
+      error: { 
+        code: 'SLOT_GENERATION_ERROR', 
+        message: 'Error generating slots' 
+      } 
+    });
   }
-
-  return slots;
 };
+// const generateSlots = (dateString, interval = 30) => {
+//   console.log("request body"+req.body);
+//   const slots = [];
+//   const now = new Date();
+
+//   // Take specific date passed by user
+//   const targetDate = new Date(dateString);
+//   targetDate.setHours(0, 0, 0, 0);
+
+//   // Generate slots for that day only
+//   for (let hour = 9; hour < 17; hour++) {
+//     for (let minute = 0; minute < 60; minute += interval) {
+//       const startTime = new Date(targetDate);
+//       startTime.setHours(hour, minute, 0, 0);
+
+//       const endTime = new Date(startTime);
+//       endTime.setMinutes(startTime.getMinutes() + interval);
+
+//       // skip slots that are already in the past
+//       if (startTime < now) continue;
+
+//       slots.push({
+//         startTime,
+//         endTime,
+//         isBooked: false,
+//       });
+//     }
+//   }
+
+//   return slots;
+// };
 
 const getAvailableSlots = async (req, res) => {
   try {
